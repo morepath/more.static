@@ -26,6 +26,7 @@ setup(name='more.static',
         ],
       extras_require = dict(
         test=['pytest >= 2.0',
-              'pytest-cov'],
+              'pytest-cov',
+              'WebTest >= 2.0.14'],
         ),
       )
