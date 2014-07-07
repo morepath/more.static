@@ -31,9 +31,9 @@ def test_static():
     components = bower.components(
         'myapp', os.path.join(os.path.dirname(__file__), 'bower_components'))
 
-    @app.static_includer()
-    def get_static_includer(request):
-        return components.includer(request.environ)
+    @app.static_components()
+    def get_static_includer():
+        return components
 
     config.commit()
 

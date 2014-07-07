@@ -5,28 +5,29 @@ from morepath import Directive
 
 
 @generic
-def get_static_includer(request):
+def get_static_components():
     raise NotImplementedError()
 
 
 class StaticApp(App):
     def request(self, environ):
-        request = StaticIncluderRequest(environ)
+        request = IncludeRequest(environ)
         request.lookup = self.lookup
         return request
 
 
-@StaticApp.directive('static_includer')
-class StaticIncluderDirective(Directive):
+@StaticApp.directive('static_components')
+class StaticComponentsDirective(Directive):
     def identifier(self, app):
-        # only one static includer per app
+        # only one static components per app
         return ()
 
     def perform(self, registry, obj):
-        registry.register(get_static_includer, (StaticIncluderRequest,), obj)
+        registry.register(get_static_components, (), obj)
 
 
-class StaticIncluderRequest(Request):
+class IncludeRequest(Request):
     def include(self, path_or_resource):
-        include = get_static_includer(self, lookup=self.lookup)
+        components = get_static_components(lookup=self.lookup)
+        include = components.includer(self.environ)
         include(path_or_resource)
