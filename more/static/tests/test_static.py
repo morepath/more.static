@@ -1,6 +1,6 @@
 import os
 import morepath
-from morepath.app import App
+import more.static
 from more.static.core import StaticApp
 import bowerstatic
 from webtest import TestApp as Client
@@ -12,9 +12,10 @@ def setup_module(module):
 
 def test_static():
     config = morepath.setup()
-    #config.scan('more.static')
+    config.scan(more.static)
 
-    app = StaticApp(testing_config=config)
+    class app(StaticApp):
+        testing_config = config
 
     @app.path(path='/')
     class Root(object):
@@ -36,7 +37,7 @@ def test_static():
 
     config.commit()
 
-    c = Client(bower.wrap(app))
+    c = Client(bower.wrap(app()))
     response = c.get('/')
 
     assert response.body == (
