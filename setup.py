@@ -21,7 +21,7 @@ setup(name='more.static',
       zip_safe=False,
       install_requires=[
         'setuptools',
-        'morepath',
+        'morepath >= 0.4',
         'bowerstatic',
         ],
       extras_require = dict(
