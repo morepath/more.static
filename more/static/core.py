@@ -1,4 +1,5 @@
 from morepath.request import Request
+from morepath.reify import reify
 from morepath.app import App
 from reg import generic
 from morepath import Directive
@@ -27,7 +28,11 @@ class StaticComponentsDirective(Directive):
 
 
 class IncludeRequest(Request):
+
+    @reify
+    def static_components(self):
+        return get_static_components(lookup=self.lookup)
+
     def include(self, path_or_resource):
-        components = get_static_components(lookup=self.lookup)
-        include = components.includer(self.environ)
+        include = self.static_components.includer(self.environ)
         include(path_or_resource)

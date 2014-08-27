@@ -4,8 +4,11 @@ CHANGES
 0.2 (unreleased)
 ================
 
-- Nothing changed yet.
+- Make available a ``static_components`` property on the request,
+  which is a BowerStatic static components object. You can use
+  this primarily to get the URL to a component, like this::
 
+    request.static_components.component('jquery').url()
 
 0.1 (2014-07-07)
 ================

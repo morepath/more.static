@@ -45,3 +45,35 @@ def test_static():
         b'<script type="text/javascript" '
         b'src="/bowerstatic/myapp/jquery/2.1.1/dist/jquery.js"></script>'
         b'</head><body></body></html>')
+
+
+def test_component_url():
+    config = morepath.setup()
+    config.scan(more.static)
+
+    class app(StaticApp):
+        testing_config = config
+
+    @app.path(path='/')
+    class Root(object):
+        pass
+
+    @app.html(model=Root)
+    def default(self, request):
+        return request.static_components.component('jquery').url()
+
+    bower = bowerstatic.Bower()
+
+    components = bower.components(
+        'myapp', os.path.join(os.path.dirname(__file__), 'bower_components'))
+
+    @app.static_components()
+    def get_static_includer():
+        return components
+
+    config.commit()
+
+    c = Client(bower.wrap(app()))
+    response = c.get('/')
+
+    assert response.body == "/bowerstatic/myapp/jquery/2.1.1/"
