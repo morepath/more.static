@@ -1,7 +1,7 @@
 CHANGES
 *******
 
-0.2 (unreleased)
+0.2 (2014-08-28)
 ================
 
 - Make available a ``static_components`` property on the request,
