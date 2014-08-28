@@ -10,6 +10,8 @@ CHANGES
 
     request.static_components.component('jquery').url()
 
+- Depend on version 0.3 of BowerStatic.
+
 0.1 (2014-07-07)
 ================
 

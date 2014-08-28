@@ -22,7 +22,7 @@ setup(name='more.static',
       install_requires=[
         'setuptools',
         'morepath >= 0.4',
-        'bowerstatic',
+        'bowerstatic >= 0.3',
         ],
       extras_require = dict(
         test=['pytest >= 2.0',
