@@ -4,8 +4,13 @@ CHANGES
 0.3 (unreleased)
 ================
 
-- Nothing changed yet.
+- The 0.2 introduced a ``component`` method to obtain a component object
+  and thus its URL. This didn't turn out to be compatible with local
+  components, so I've changed it to ``get_component`` instead::
 
+    request.static_components.get_component('jquery').url()
+
+- Depend on version 0.4 of BowerStatic.
 
 0.2 (2014-08-28)
 ================

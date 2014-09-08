@@ -60,7 +60,7 @@ def test_component_url():
 
     @app.html(model=Root)
     def default(self, request):
-        return request.static_components.component('jquery').url()
+        return request.static_components.get_component('jquery').url()
 
     bower = bowerstatic.Bower()
 
