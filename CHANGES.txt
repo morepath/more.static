@@ -1,7 +1,7 @@
 CHANGES
 *******
 
-0.3 (unreleased)
+0.3 (2014-09-08)
 ================
 
 - The 0.2 introduced a ``component`` method to obtain a component object
