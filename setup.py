@@ -7,7 +7,7 @@ long_description = (
     open('CHANGES.txt').read())
 
 setup(name='more.static',
-      version='0.3',
+      version='0.4.dev0',
       description="BowerStatic integration for Morepath",
       long_description=long_description,
       author="Martijn Faassen",
