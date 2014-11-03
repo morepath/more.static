@@ -1,7 +1,7 @@
 CHANGES
 *******
 
-0.4 (unreleased)
+0.4 (2014-11-03)
 ================
 
 - Adjust to handle Morepath 0.7 API changes concerning request
