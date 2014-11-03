@@ -4,8 +4,8 @@ CHANGES
 0.4 (unreleased)
 ================
 
-- Nothing changed yet.
-
+- Adjust to handle Morepath 0.7 API changes concerning request
+  construction.
 
 0.3 (2014-09-08)
 ================

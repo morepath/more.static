@@ -10,11 +10,18 @@ def get_static_components():
     raise NotImplementedError()
 
 
+class IncludeRequest(Request):
+    @reify
+    def static_components(self):
+        return get_static_components(lookup=self.lookup)
+
+    def include(self, path_or_resource):
+        include = self.static_components.includer(self.environ)
+        include(path_or_resource)
+
+
 class StaticApp(App):
-    def request(self, environ):
-        request = IncludeRequest(environ)
-        request.lookup = self.lookup
-        return request
+    request_class = IncludeRequest
 
 
 @StaticApp.directive('static_components')
@@ -25,14 +32,3 @@ class StaticComponentsDirective(Directive):
 
     def perform(self, registry, obj):
         registry.register(get_static_components, (), obj)
-
-
-class IncludeRequest(Request):
-
-    @reify
-    def static_components(self):
-        return get_static_components(lookup=self.lookup)
-
-    def include(self, path_or_resource):
-        include = self.static_components.includer(self.environ)
-        include(path_or_resource)
