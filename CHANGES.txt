@@ -4,15 +4,16 @@ CHANGES
 0.5 (unreleased)
 ================
 
-- It is no longer necessary to wrap the application with Bower. Instead a tween
-  is used. To migrate, simply replace the following::
- 
-    wsgi = bower.wrap(app())
+- It is no longer necessary to wrap the application with Bower using
+  WSGI. Instead a tween is used. To migrate, simply replace the
+  following::
+
+    wsgi = bower.wrap(App())
     morepath.run(wsgi)
 
   With this::
 
-    morepath.run(app())
+    morepath.run(App())
 
 - Requires Morepath 0.8 and Bowerstatic 0.6.
 
