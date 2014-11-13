@@ -76,4 +76,4 @@ def test_component_url():
     c = Client(bower.wrap(app()))
     response = c.get('/')
 
-    assert response.body == "/bowerstatic/myapp/jquery/2.1.1/"
+    assert response.body == b"/bowerstatic/myapp/jquery/2.1.1/"
