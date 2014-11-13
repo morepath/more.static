@@ -1,4 +1,3 @@
-import os
 import morepath
 import more.static
 from more.static.core import StaticApp
@@ -14,30 +13,29 @@ def test_static():
     config = morepath.setup()
     config.scan(more.static)
 
-    class app(StaticApp):
+    class App(StaticApp):
         testing_config = config
 
-    @app.path(path='/')
+    @App.path(path='/')
     class Root(object):
         pass
 
-    @app.html(model=Root)
+    @App.html(model=Root)
     def default(self, request):
         request.include('jquery')
         return '<html><head></head><body></body></html>'
 
-    bower = bowerstatic.Bower()
-
-    components = bower.components(
-        'myapp', os.path.join(os.path.dirname(__file__), 'bower_components'))
-
-    @app.static_components()
+    @App.static_components()
     def get_static_includer():
+        bower = bowerstatic.Bower()
+        components = bower.components(
+            'myapp', bowerstatic.module_relative_path('bower_components'))
+
         return components
 
     config.commit()
 
-    c = Client(bower.wrap(app()))
+    c = Client(App())
     response = c.get('/')
 
     assert response.body == (
@@ -51,29 +49,51 @@ def test_component_url():
     config = morepath.setup()
     config.scan(more.static)
 
-    class app(StaticApp):
+    class App(StaticApp):
         testing_config = config
 
-    @app.path(path='/')
+    @App.path(path='/')
     class Root(object):
         pass
 
-    @app.html(model=Root)
+    @App.html(model=Root)
     def default(self, request):
-        return request.static_components.get_component('jquery').url()
+        return request.app.bower_components.get_component('jquery').url()
 
-    bower = bowerstatic.Bower()
-
-    components = bower.components(
-        'myapp', os.path.join(os.path.dirname(__file__), 'bower_components'))
-
-    @app.static_components()
+    @App.static_components()
     def get_static_includer():
+        bower = bowerstatic.Bower()
+        components = bower.components(
+            'myapp', bowerstatic.module_relative_path('bower_components'))
+
         return components
 
     config.commit()
 
-    c = Client(bower.wrap(app()))
+    c = Client(App())
     response = c.get('/')
 
-    assert response.body == "/bowerstatic/myapp/jquery/2.1.1/"
+    assert response.body == b"/bowerstatic/myapp/jquery/2.1.1/"
+
+
+def test_components_unused():
+    config = morepath.setup()
+    config.scan(more.static)
+
+    class App(StaticApp):
+        testing_config = config
+
+    @App.path(path='/')
+    class Root(object):
+        pass
+
+    @App.html(model=Root)
+    def default(self, request):
+        return '<html><head></head><body></body></html>'
+
+    config.commit()
+
+    c = Client(App())
+    response = c.get('/')
+
+    assert response.body == b'<html><head></head><body></body></html>'
