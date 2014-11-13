@@ -1,7 +1,7 @@
 CHANGES
 *******
 
-0.5 (unreleased)
+0.5 (2014-11-13)
 ================
 
 - It is no longer necessary to wrap the application with Bower using
