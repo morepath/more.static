@@ -1,11 +1,11 @@
 from morepath.request import Request
 from morepath.reify import reify
 from morepath.app import App
-from reg import generic
+from reg import dispatch
 from morepath import Directive
 
 
-@generic
+@dispatch()
 def get_static_components():
     raise NotImplementedError()
 
@@ -31,4 +31,4 @@ class StaticComponentsDirective(Directive):
         return ()
 
     def perform(self, registry, obj):
-        registry.register(get_static_components, (), obj)
+        registry.register_function(get_static_components, obj)
