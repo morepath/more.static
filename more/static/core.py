@@ -10,7 +10,7 @@ from morepath import Directive
 
 @dispatch()
 def get_static_components():
-    raise NotImplementedError()
+    return None
 
 
 class IncludeRequest(Request):
@@ -25,10 +25,8 @@ class StaticApp(App):
 
     @reify
     def bower(self):
-        try:
+        if self.bower_components is not None:
             return self.bower_components.bower
-        except NotImplementedError:
-            return None
 
     @reify
     def bower_components(self):
