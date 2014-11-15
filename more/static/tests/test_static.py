@@ -80,8 +80,7 @@ def test_component_url():
     assert response.body == b"/* this is a fake jquery.js */\n"
 
     # if it exists
-    response = c.get(
-        '/bowerstatic/myapp/jquery/2.1.1/dist/inexistant.js', status=404)
+    c.get('/bowerstatic/myapp/jquery/2.1.1/dist/inexistant.js', status=404)
 
 
 def test_components_unused():
