@@ -1,4 +1,5 @@
 import bowerstatic
+import webob
 
 from morepath.request import Request
 from morepath.reify import reify
@@ -9,7 +10,7 @@ from morepath import Directive
 
 @dispatch()
 def get_static_components():
-    raise NotImplementedError()
+    return None
 
 
 class IncludeRequest(Request):
@@ -24,7 +25,8 @@ class StaticApp(App):
 
     @reify
     def bower(self):
-        return bowerstatic.Bower()
+        if self.bower_components is not None:
+            return self.bower_components.bower
 
     @reify
     def bower_components(self):
@@ -52,8 +54,22 @@ class StaticComponentsDirective(Directive):
 @StaticApp.tween_factory()
 def get_bower_injector_tween(app, handler):
     def bower_injector_tween(request):
-        response = handler(request)
+        if request.app.bower is None:
+            return handler(request)
+
+        # XXX check if the request should be handled by bowerstatic instead of
+        # the application. This should be moved into a dedicated function in
+        # bowerstatic.
+        publisher_signature = request.path_info_peek()
+
+        if publisher_signature != request.app.bower.publisher_signature:
+            response = request.get_response(handler(request))
+        else:
+            response = webob.response.Response()
+
         response = request.app.bower_injector.inject(request, response)
         response = request.app.bower_publisher.publish(request, response)
+
         return response
+
     return bower_injector_tween
