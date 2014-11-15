@@ -25,20 +25,13 @@ class StaticApp(App):
 
     @reify
     def bower(self):
-        if self.bower_components is not None:
-            return self.bower_components.bower
+        if self.bower_components is None:
+            return None
+        return self.bower_components.bower
 
     @reify
     def bower_components(self):
         return get_static_components(lookup=self.lookup)
-
-    @reify
-    def bower_publisher(self):
-        return bowerstatic.publisher.Publisher(self.bower, None)
-
-    @reify
-    def bower_injector(self):
-        return bowerstatic.injector.Injector(self.bower, None)
 
 
 @StaticApp.directive('static_components')
@@ -53,23 +46,10 @@ class StaticComponentsDirective(Directive):
 
 @StaticApp.tween_factory()
 def get_bower_injector_tween(app, handler):
-    def bower_injector_tween(request):
-        if request.app.bower is None:
-            return handler(request)
+    if app.bower is None:
+        return handler
 
-        # XXX check if the request should be handled by bowerstatic instead of
-        # the application. This should be moved into a dedicated function in
-        # bowerstatic.
-        publisher_signature = request.path_info_peek()
+    injector_tween = bowerstatic.InjectorTween(app.bower, handler)
+    publisher_tween = bowerstatic.PublisherTween(app.bower, injector_tween)
+    return publisher_tween
 
-        if publisher_signature != request.app.bower.publisher_signature:
-            response = request.get_response(handler(request))
-        else:
-            response = webob.response.Response()
-
-        response = request.app.bower_injector.inject(request, response)
-        response = request.app.bower_publisher.publish(request, response)
-
-        return response
-
-    return bower_injector_tween

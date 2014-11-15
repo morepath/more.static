@@ -4,8 +4,11 @@ CHANGES
 0.6 (unreleased)
 ================
 
-- Nothing changed yet.
+- Use BowerStatic 0.7, which makes Tween-based integration much
+  simpler.
 
+- There was a bug where references were injected but not actually
+  properly published.
 
 0.5 (2014-11-13)
 ================

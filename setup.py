@@ -22,7 +22,7 @@ setup(
     install_requires=[
         'setuptools',
         'morepath >= 0.8',
-        'bowerstatic >= 0.6',
+        'bowerstatic >= 0.7',
     ],
     extras_require=dict(
         test=[
