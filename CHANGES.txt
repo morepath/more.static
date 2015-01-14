@@ -4,8 +4,10 @@ CHANGES
 0.7 (unreleased)
 ================
 
-- Nothing changed yet.
+- Can pass a custom ``renderer`` argument to ``request.include()``, to
+  support this feature added in BowerStatic 0.8.
 
+  http://bowerstatic.readthedocs.org/en/latest/integrating.html#custom-renderer
 
 0.6 (2014-11-15)
 ================

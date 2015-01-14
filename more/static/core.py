@@ -15,9 +15,9 @@ def get_static_components():
 
 class IncludeRequest(Request):
 
-    def include(self, path_or_resource):
+    def include(self, path_or_resource, renderer=None):
         include = self.app.bower_components.includer(self.environ)
-        include(path_or_resource)
+        include(path_or_resource, renderer)
 
 
 class StaticApp(App):

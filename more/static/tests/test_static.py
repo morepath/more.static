@@ -104,3 +104,38 @@ def test_components_unused():
     response = c.get('/')
 
     assert response.body == b'<html><head></head><body></body></html>'
+
+
+def test_custom_renderer():
+    config = morepath.setup()
+    config.scan(more.static)
+
+    class App(StaticApp):
+        testing_config = config
+
+    @App.path(path='/')
+    class Root(object):
+        pass
+
+    @App.html(model=Root)
+    def default(self, request):
+        request.include('jquery', '<foo>{url}</foo>')
+        return '<html><head></head><body></body></html>'
+
+    @App.static_components()
+    def get_static_includer():
+        bower = bowerstatic.Bower()
+        components = bower.components(
+            'myapp', bowerstatic.module_relative_path('bower_components'))
+
+        return components
+
+    config.commit()
+
+    c = Client(App())
+    response = c.get('/')
+
+    assert response.body == (
+        b'<html><head>'
+        b'<foo>/bowerstatic/myapp/jquery/2.1.1/dist/jquery.js</foo>'
+        b'</head><body></body></html>')
