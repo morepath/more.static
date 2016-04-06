@@ -1,11 +1,10 @@
 import bowerstatic
-import webob
+import dectate
 
 from morepath.request import Request
 from morepath.reify import reify
 from morepath.app import App
-from reg import dispatch
-from morepath import Directive
+from reg import dispatch, Registry as RegRegistry
 
 
 @dispatch()
@@ -35,13 +34,21 @@ class StaticApp(App):
 
 
 @StaticApp.directive('static_components')
-class StaticComponentsDirective(Directive):
-    def identifier(self, app):
+class StaticComponentsDirective(dectate.Action):
+    config = {
+        'reg_registry': RegRegistry
+    }
+
+    def __init__(self):
+        """Register a function that returns static components.
+        """
+
+    def identifier(self, reg_registry):
         # only one static components per app
         return ()
 
-    def perform(self, registry, obj):
-        registry.register_function(get_static_components, obj)
+    def perform(self, obj, reg_registry):
+        reg_registry.register_function(get_static_components, obj)
 
 
 @StaticApp.tween_factory()
@@ -52,4 +59,3 @@ def get_bower_injector_tween(app, handler):
     injector_tween = bowerstatic.InjectorTween(app.bower, handler)
     publisher_tween = bowerstatic.PublisherTween(app.bower, injector_tween)
     return publisher_tween
-

@@ -21,7 +21,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'morepath >= 0.8',
+        'morepath >= 0.13',
         'bowerstatic >= 0.8',
     ],
     extras_require=dict(

@@ -10,11 +10,10 @@ def setup_module(module):
 
 
 def test_static():
-    config = morepath.setup()
-    config.scan(more.static)
+    morepath.autoscan(more.static)
 
     class App(StaticApp):
-        testing_config = config
+        pass
 
     @App.path(path='/')
     class Root(object):
@@ -33,7 +32,7 @@ def test_static():
 
         return components
 
-    config.commit()
+    morepath.commit(App)
 
     c = Client(App())
     response = c.get('/')
@@ -46,11 +45,10 @@ def test_static():
 
 
 def test_component_url():
-    config = morepath.setup()
-    config.scan(more.static)
+    morepath.autoscan(more.static)
 
     class App(StaticApp):
-        testing_config = config
+        pass
 
     @App.path(path='/')
     class Root(object):
@@ -68,7 +66,7 @@ def test_component_url():
 
         return components
 
-    config.commit()
+    morepath.commit(App)
 
     c = Client(App())
     response = c.get('/')
@@ -84,11 +82,10 @@ def test_component_url():
 
 
 def test_components_unused():
-    config = morepath.setup()
-    config.scan(more.static)
+    morepath.autoscan(more.static)
 
     class App(StaticApp):
-        testing_config = config
+        pass
 
     @App.path(path='/')
     class Root(object):
@@ -98,7 +95,7 @@ def test_components_unused():
     def default(self, request):
         return '<html><head></head><body></body></html>'
 
-    config.commit()
+    morepath.commit(App)
 
     c = Client(App())
     response = c.get('/')
@@ -107,11 +104,10 @@ def test_components_unused():
 
 
 def test_custom_renderer():
-    config = morepath.setup()
-    config.scan(more.static)
+    morepath.autoscan(more.static)
 
     class App(StaticApp):
-        testing_config = config
+        pass
 
     @App.path(path='/')
     class Root(object):
@@ -130,7 +126,7 @@ def test_custom_renderer():
 
         return components
 
-    config.commit()
+    morepath.commit(App)
 
     c = Client(App())
     response = c.get('/')

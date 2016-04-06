@@ -4,8 +4,7 @@ CHANGES
 0.8 (unreleased)
 ================
 
-- Nothing changed yet.
-
+- Adjust to work with Morepath 0.13+ (and Dectate).
 
 0.7 (2015-01-14)
 ================
