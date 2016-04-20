@@ -1,7 +1,7 @@
 CHANGES
 *******
 
-0.8.1 (unreleased)
+0.8.1 (2016-04-20)
 ==================
 
 - There was a bug in 0.8 that used Reg's Registry instead of
