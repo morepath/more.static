@@ -1,11 +1,12 @@
 CHANGES
 *******
 
-0.9 (unreleased)
-================
+0.8.1 (unreleased)
+==================
 
-- Nothing changed yet.
-
+- There was a bug in 0.8 that used Reg's Registry instead of
+  ``morepath.app.RegRegistry``. This could in some circumstances
+  lead to the wrong registry being installed.
 
 0.8 (2016-04-08)
 ================

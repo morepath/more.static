@@ -4,7 +4,8 @@ import dectate
 from morepath.request import Request
 from morepath.reify import reify
 from morepath.app import App
-from reg import dispatch, Registry as RegRegistry
+from reg import dispatch
+from morepath.app import RegRegistry
 
 
 @dispatch()
