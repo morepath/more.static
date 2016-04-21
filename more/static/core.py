@@ -1,11 +1,11 @@
 import bowerstatic
 import dectate
+from reg import dispatch
 
 from morepath.request import Request
 from morepath.reify import reify
 from morepath.app import App
-from reg import dispatch
-from morepath.app import RegRegistry
+from morepath.directive import RegRegistry
 
 
 @dispatch()
