@@ -1,5 +1,4 @@
 import morepath
-import more.static
 from more.static.core import StaticApp
 import bowerstatic
 from webtest import TestApp as Client
@@ -10,8 +9,6 @@ def setup_module(module):
 
 
 def test_static():
-    morepath.autoscan(more.static)
-
     class App(StaticApp):
         pass
 
@@ -32,8 +29,6 @@ def test_static():
 
         return components
 
-    morepath.commit(App)
-
     c = Client(App())
     response = c.get('/')
 
@@ -45,8 +40,6 @@ def test_static():
 
 
 def test_component_url():
-    morepath.autoscan(more.static)
-
     class App(StaticApp):
         pass
 
@@ -66,8 +59,6 @@ def test_component_url():
 
         return components
 
-    morepath.commit(App)
-
     c = Client(App())
     response = c.get('/')
 
@@ -82,8 +73,6 @@ def test_component_url():
 
 
 def test_components_unused():
-    morepath.autoscan(more.static)
-
     class App(StaticApp):
         pass
 
@@ -95,8 +84,6 @@ def test_components_unused():
     def default(self, request):
         return '<html><head></head><body></body></html>'
 
-    morepath.commit(App)
-
     c = Client(App())
     response = c.get('/')
 
@@ -104,8 +91,6 @@ def test_components_unused():
 
 
 def test_custom_renderer():
-    morepath.autoscan(more.static)
-
     class App(StaticApp):
         pass
 
@@ -125,8 +110,6 @@ def test_custom_renderer():
             'myapp', bowerstatic.module_relative_path('bower_components'))
 
         return components
-
-    morepath.commit(App)
 
     c = Client(App())
     response = c.get('/')
