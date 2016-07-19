@@ -1,11 +1,6 @@
-import morepath
 from more.static.core import StaticApp
 import bowerstatic
 from webtest import TestApp as Client
-
-
-def setup_module(module):
-    morepath.disable_implicit()
 
 
 def test_static():
