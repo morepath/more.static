@@ -15,7 +15,7 @@ setup(
     author_email="faassen@startifact.com",
     keywords='morepath bowerstatic bower',
     license="BSD",
-    url="http://pypi.python.org/pypi/more.static",
+    url="https://github.com/morepath/more.static",
     namespace_packages=['more'],
     packages=find_packages(),
     include_package_data=True,
