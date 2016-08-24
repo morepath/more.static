@@ -36,8 +36,8 @@ setup(
     ],
     extras_require=dict(
         test=[
-            'pytest >= 2.0',
-            'pytest-cov',
+            'pytest < 3.0.0',
+          #  'pytest-cov',
             'WebTest >= 2.0.14'
         ],
     ),

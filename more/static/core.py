@@ -1,16 +1,10 @@
 import bowerstatic
 import dectate
-from reg import dispatch
 
+import reg
 from morepath.request import Request
 from morepath.reify import reify
 from morepath.app import App
-from morepath.directive import RegRegistry
-
-
-@dispatch()
-def get_static_components():
-    return None
 
 
 class IncludeRequest(Request):
@@ -23,6 +17,9 @@ class IncludeRequest(Request):
 class StaticApp(App):
     request_class = IncludeRequest
 
+    def get_static_components(self):
+        return None
+
     @reify
     def bower(self):
         if self.bower_components is None:
@@ -31,25 +28,23 @@ class StaticApp(App):
 
     @reify
     def bower_components(self):
-        return get_static_components(lookup=self.lookup)
+        return self.get_static_components()
 
 
 @StaticApp.directive('static_components')
 class StaticComponentsDirective(dectate.Action):
-    config = {
-        'reg_registry': RegRegistry
-    }
+    app_class_arg = True
 
     def __init__(self):
         """Register a function that returns static components.
         """
 
-    def identifier(self, reg_registry):
+    def identifier(self, app_class):
         # only one static components per app
         return ()
 
-    def perform(self, obj, reg_registry):
-        reg_registry.register_function(get_static_components, obj)
+    def perform(self, obj, app_class):
+        app_class.get_static_components = reg.methodify_auto(obj)
 
 
 @StaticApp.tween_factory()
