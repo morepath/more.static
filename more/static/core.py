@@ -44,7 +44,7 @@ class StaticComponentsDirective(dectate.Action):
         return ()
 
     def perform(self, obj, app_class):
-        app_class.get_static_components = reg.methodify_auto(obj)
+        app_class.get_static_components = reg.methodify(obj, selfname='app')
 
 
 @StaticApp.tween_factory()
