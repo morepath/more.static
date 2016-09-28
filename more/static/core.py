@@ -14,24 +14,6 @@ class IncludeRequest(Request):
         include(path_or_resource, renderer)
 
 
-class StaticApp(App):
-    request_class = IncludeRequest
-
-    def get_static_components(self):
-        return None
-
-    @reify
-    def bower(self):
-        if self.bower_components is None:
-            return None
-        return self.bower_components.bower
-
-    @reify
-    def bower_components(self):
-        return self.get_static_components()
-
-
-@StaticApp.directive('static_components')
 class StaticComponentsDirective(dectate.Action):
     app_class_arg = True
 
@@ -45,6 +27,25 @@ class StaticComponentsDirective(dectate.Action):
 
     def perform(self, obj, app_class):
         app_class.get_static_components = reg.methodify(obj, selfname='app')
+
+
+class StaticApp(App):
+    request_class = IncludeRequest
+
+    static_components = dectate.directive(StaticComponentsDirective)
+
+    def get_static_components(self):
+        return None
+
+    @reify
+    def bower(self):
+        if self.bower_components is None:
+            return None
+        return self.bower_components.bower
+
+    @reify
+    def bower_components(self):
+        return self.get_static_components()
 
 
 @StaticApp.tween_factory()
