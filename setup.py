@@ -8,7 +8,7 @@ long_description = '\n'.join((
 
 setup(
     name='more.static',
-    version='0.10',
+    version='0.11.dev0',
     description="BowerStatic integration for Morepath",
     long_description=long_description,
     author="Martijn Faassen",
