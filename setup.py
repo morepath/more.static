@@ -35,6 +35,7 @@ setup(
         test=[
             'pytest-cov',
             'WebTest >= 2.0.14'
+            'tox'
         ],
     ),
 )
