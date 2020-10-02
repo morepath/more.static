@@ -4,7 +4,7 @@ CHANGES
 0.11 (unreleased)
 =================
 
-- Nothing changed yet.
+- Drop support for Python below 3.6
 
 
 0.10 (2016-10-04)
