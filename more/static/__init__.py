@@ -1,1 +1,1 @@
-from .core import StaticApp  # flake8: noqa
+from .core import StaticApp  # noqa
