@@ -8,7 +8,6 @@ from morepath.app import App
 
 
 class IncludeRequest(Request):
-
     def include(self, path_or_resource, renderer=None):
         include = self.app.bower_components.includer(self.environ)
         include(path_or_resource, renderer)
@@ -18,15 +17,14 @@ class StaticComponentsDirective(dectate.Action):
     app_class_arg = True
 
     def __init__(self):
-        """Register a function that returns static components.
-        """
+        """Register a function that returns static components."""
 
     def identifier(self, app_class):
         # only one static components per app
         return ()
 
     def perform(self, obj, app_class):
-        app_class.get_static_components = reg.methodify(obj, selfname='app')
+        app_class.get_static_components = reg.methodify(obj, selfname="app")
 
 
 class StaticApp(App):
