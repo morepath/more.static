@@ -34,10 +34,8 @@ setup(
         'bowerstatic >= 0.8',
     ],
     extras_require=dict(
-        test=[
-            'pytest-cov',
-            'WebTest >= 2.0.14'
-            'tox'
-        ],
+        test=["pytest >= 2.9.0", "WebTest >= 2.0.14", "pytest-remove-stale-bytecode"],
+        pep8=["flake8", "black"],
+        coverage=["pytest-cov"],
     ),
 )
