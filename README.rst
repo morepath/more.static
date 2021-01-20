@@ -1,3 +1,18 @@
+.. image:: https://github.com/morepath/more.static/workflows/CI/badge.svg?branch=master
+   :target: https://github.com/morepath/more.static/actions?workflow=CI
+   :alt: CI Status
+
+.. image:: https://coveralls.io/repos/github/morepath/more.static/badge.svg?branch=master
+    :target: https://coveralls.io/github/morepath/more.static?branch=master
+
+.. image:: https://img.shields.io/pypi/v/more.static.svg
+  :target: https://pypi.org/project/more.static/
+
+.. image:: https://img.shields.io/pypi/pyversions/more.static.svg
+  :target: https://pypi.org/project/more.static/
+
+
+
 more.static: BowerStatic integration for Morepath
 =================================================
 

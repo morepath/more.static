@@ -8,7 +8,7 @@ def test_static():
         pass
 
     @App.path(path="/")
-    class Root(object):
+    class Root:
         pass
 
     @App.html(model=Root)
@@ -41,7 +41,7 @@ def test_component_url():
         pass
 
     @App.path(path="/")
-    class Root(object):
+    class Root:
         pass
 
     @App.html(model=Root)
@@ -75,7 +75,7 @@ def test_components_unused():
         pass
 
     @App.path(path="/")
-    class Root(object):
+    class Root:
         pass
 
     @App.html(model=Root)
@@ -93,7 +93,7 @@ def test_custom_renderer():
         pass
 
     @App.path(path="/")
-    class Root(object):
+    class Root:
         pass
 
     @App.html(model=Root)
