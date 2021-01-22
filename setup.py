@@ -41,7 +41,6 @@ setup(
             "WebTest >= 2.0.14",
             "pytest-remove-stale-bytecode",
         ],
-        pep8=["flake8", "black"],
         coverage=["pytest-cov"],
     ),
 )
